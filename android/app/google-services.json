@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "923774417513",
+    "project_id": "mynotes-dev-cyan",
+    "storage_bucket": "mynotes-dev-cyan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923774417513:android:d605d2c72dff3c3c5e40f8",
+        "android_client_info": {
+          "package_name": "dev.cyan.mynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923774417513-sue4sha15c99g378d8fshq90i1i9fvvp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaviSyerIYM4AFTrpsAv-VtQDpYsRQxcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923774417513-sue4sha15c99g378d8fshq90i1i9fvvp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
