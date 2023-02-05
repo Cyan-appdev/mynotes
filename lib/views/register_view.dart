@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 
 import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -63,17 +64,37 @@ class _RegisterViewState extends State<RegisterView> {
                     email: email, password: password);
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'invalid-email') {
-                  devtools.log('Invalid email');
+                  await showErrorDialog(
+                    context,
+                    'Invalid email',
+                  );
                 } else if (e.code == 'email-already-in-use') {
-                  devtools.log('Email already in use');
+                  await showErrorDialog(
+                    context,
+                    'Email already in use',
+                  );
                 } else if (e.code == 'unknown') {
-                  devtools.log('Password field is empty');
+                  await showErrorDialog(
+                    context,
+                    'Email and/or password field is empty',
+                  );
                 } else if (e.code == 'weak-password') {
-                  devtools.log('Password should be at least 6 characters');
+                  await showErrorDialog(
+                    context,
+                    'Password should be at least 6 characters',
+                  );
                 } else {
+                  await showErrorDialog(
+                    context,
+                    'Error ${e.code}',
+                  );
                   devtools.log('$e');
-                  devtools.log(e.code);
                 }
+              } catch (e) {
+                await showErrorDialog(
+                  context,
+                  e.toString(),
+                );
               }
             },
             child: const Text('Register'),
@@ -83,7 +104,7 @@ class _RegisterViewState extends State<RegisterView> {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil(loginRoute, (route) => false);
             },
-            child: const Text('Already registered? log in here!'),
+            child: const Text('Already registered? Log in here!'),
           ),
         ],
       ),
