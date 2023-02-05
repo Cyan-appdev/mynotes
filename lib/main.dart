@@ -5,6 +5,8 @@ import 'package:mynotes/firebase_options.dart';
 import 'package:mynotes/views/register_view.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'package:mynotes/views/verify_email_view.dart';
+
+import 'package:mynotes/constants/routes.dart';
 import 'dart:developer' as devtools show log;
 
 void main() {
@@ -21,10 +23,10 @@ void main() {
     // initialRoute: '/home',
     routes: {
       // '/home': (context) => const HomePage(),
-      '/login': (context) => const LoginView(),
-      '/register': (context) => const RegisterView(),
-      '/verify': (context) => const VerifyEmailView(),
-      '/notes': (context) => const NotesView(),
+      // '/verify': (context) => const VerifyEmailView(),
+      loginRoute: (context) => const LoginView(),
+      registerRoute: (context) => const RegisterView(),
+      notesRoute: (context) => const NotesView(),
     },
   ));
 }
@@ -59,8 +61,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-enum MenuAction { logout }
-
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
 
@@ -84,8 +84,8 @@ class _NotesViewState extends State<NotesView> {
                   if (shouldLogout) {
                     await FirebaseAuth.instance.signOut();
                     if (context.mounted) {
-                      Navigator.of(context)
-                          .pushNamedAndRemoveUntil('/login', (route) => false);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          loginRoute, (route) => false);
                     }
                   }
                   break;
@@ -106,6 +106,8 @@ class _NotesViewState extends State<NotesView> {
     );
   }
 }
+
+enum MenuAction { logout }
 
 Future<bool> showLogOutDialog(BuildContext context) {
   return showDialog<bool>(
