@@ -32,7 +32,7 @@ class _NotesViewState extends State<NotesView> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(newNoteRoute);
+                Navigator.of(context).pushNamed(createOrUpdateNewNoteRoute);
               },
               icon: const Icon(Icons.add),
             ),
@@ -45,8 +45,8 @@ class _NotesViewState extends State<NotesView> {
                     if (shouldLogout) {
                       await AuthService.firebase().logOut();
                       if (context.mounted) {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            loginRoute, (route) => false);
+                        Navigator.of(context)
+                            .pushNamedAndRemoveUntil(loginRoute, (_) => false);
                       }
                     }
                     break;
@@ -81,9 +81,15 @@ class _NotesViewState extends State<NotesView> {
                             onDeleteNote: (note) async {
                               await _notesService.deleteNote(id: note.id);
                             },
+                            onTap: (note) {
+                              Navigator.of(context).pushNamed(
+                                createOrUpdateNewNoteRoute,
+                                arguments: note,
+                              );
+                            },
                           );
                         } else {
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                         }
                       default:
                         return const CircularProgressIndicator();

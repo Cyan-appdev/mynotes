@@ -213,7 +213,7 @@ class NotesService {
     final notes = await db.query(
       noteTable,
     );
-    return notes.map((notesRow) => DatabaseNote.fromRow(notesRow));
+    return notes.map((noteRow) => DatabaseNote.fromRow(noteRow));
   }
 
   Future<DatabaseNote> updateNote({
