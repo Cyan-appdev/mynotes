@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mynotes/services/auth/bloc/auth_bloc.dart';
-import 'package:mynotes/services/auth/bloc/auth_events.dart';
+import 'package:mynotes/services/auth/bloc/auth_event.dart';
 import 'package:mynotes/services/auth/bloc/auth_state.dart';
 import 'package:mynotes/services/auth/firebase_auth_provider.dart';
 import 'package:mynotes/views/notes/create_update_note_view.dart';
@@ -27,11 +27,6 @@ void main() {
       child: const HomePage(),
     ),
     routes: {
-      // '/home': (context) => const HomePage(),
-      verifyEmailRoute: (context) => const VerifyEmailView(),
-      loginRoute: (context) => const LoginView(),
-      registerRoute: (context) => const RegisterView(),
-      notesRoute: (context) => const NotesView(),
       createOrUpdateNewNoteRoute: (context) => const CreatUpdateNoteView(),
     },
   ));
@@ -45,12 +40,15 @@ class HomePage extends StatelessWidget {
     context.read<AuthBloc>().add(const AuthEventInitialize());
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
+        print(state);
         if (state is AuthStateLoggedIn) {
           return const NotesView();
         } else if (state is AuthStateNeedsVerification) {
           return const VerifyEmailView();
         } else if (state is AuthStateLoggedOut) {
           return const LoginView();
+        } else if (state is AuthStateRegistering) {
+          return const RegisterView();
         } else {
           return const Scaffold(
             body: CircularProgressIndicator(),
