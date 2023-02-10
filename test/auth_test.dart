@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:mynotes/services/auth/auth_exceptions.dart';
 import 'package:mynotes/services/auth/auth_provider.dart';
 import 'package:mynotes/services/auth/auth_user.dart';
@@ -155,5 +153,10 @@ class MockAuthProvider implements AuthProvider {
       id: 'my id',
     );
     _user = newUser;
+  }
+
+  @override
+  Future<void> sendPasswordReset({required String toEmail}) {
+    throw UnimplementedError();
   }
 }
